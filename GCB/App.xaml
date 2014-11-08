@@ -1,0 +1,13 @@
+﻿<Application
+    x:Class="GCB.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GCB">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:LoginData x:Key="loginData"/>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="GCB.MainPage"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GCB"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid  Background="#FFE03636">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer   Grid.Column="1"  HorizontalAlignment="Right" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
+            <ContentControl HorizontalAlignment="Right"  x:Name="parent">
+                <Grid Background="Purple" x:Name="Ui">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*" ></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Height="70" Grid.Row="0" Grid.Column="0" Source="Image4.png" Stretch="Fill" Width="423" />
+                    <TextBlock  Grid.Row="2"   FontFamily="Segoe UI Light" FontSize="26.667" TextAlignment="Center"><Run Text="Welcome to"/><LineBreak/><Run FontSize="32" Text="Modeling Corner"/></TextBlock>
+                    <Button Grid.Row="3" Content="Request an Invite"  Height="50"   Width="313" Background="Black" Foreground="#FFEB0ECF" BorderBrush="Black" HorizontalAlignment="Center" FontFamily="Segoe UI Light" FontSize="18.667"/>
+                    <Button VerticalAlignment="Top" Content="Sign in" Grid.Row="4" Height="50"   Width="313"  Background="#FF700B7C"  Foreground="#FFF9F7F7"  BorderBrush="#FF898989"  HorizontalAlignment="Center"   FontSize="18.667" FontFamily="Segoe UI Light" Click="loginclick_Click_1"/>
+                    <Image  Height="67" VerticalAlignment="Top" Grid.Row="5" Source="Image1.png" Width="54" />
+                    <TextBlock Grid.Row="7" VerticalAlignment="Center" MaxHeight="50" TextWrapping="Wrap" Width="374" Foreground="#FFE2E2E2"   FontFamily="Segoe UI Light"  FontSize="24" TextAlignment="Center" Text="Your Personal Modeling Portfolio!" />
+                </Grid>
+            </ContentControl>
+        </ScrollViewer>
+        <ContentControl  x:Name="container"  Height="450" Margin="0,194,0,124">
+            <Popup x:Name="logincontrol1" IsOpen="False" >
+                <StackPanel Orientation="Vertical" Background="DarkBlue" Height="400" x:Name="pop" >
+                    <StackPanel>
+                        <TextBlock Text="Sign In With an Account"  HorizontalAlignment="Center" Foreground="White" FontSize="25" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,50" HorizontalAlignment="Center">
+
+
+                        <TextBlock Text="Email Id" Margin="10" Foreground="White" FontSize="25" />
+                        <TextBox x:Name="id" IsSpellCheckEnabled="True"  Height="40" Margin="13,1" Width="408" >
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Password" Foreground="White"  FontSize="25" />
+                        <PasswordBox  x:Name="pwd"  IsPasswordRevealButtonEnabled="True" Height="40" Margin="5,1"  Width="408"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,50" HorizontalAlignment="Center">
+                        <Button x:Name="loginclick" Click="loginclick_Click_1" Foreground="Wheat"   Width="100" Content="Login" ></Button>
+                        <Button x:Name="cancel" Click="loginclick_Click_1"   Foreground="Wheat"  Width="100" Content="Cancel" ></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Popup>
+        </ContentControl>
+    </Grid>
+</Page>
