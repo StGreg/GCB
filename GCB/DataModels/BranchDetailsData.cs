@@ -59,7 +59,7 @@ namespace GCB
         public async Task GetBranchDetailsData(string sessionId, string deviceId, string branch_id, string investment_id)
         {
             string post = "sessionId=" + sessionId + "&deviceId=" + deviceId + "&branch_id=" + branch_id + "&investment_id=" + investment_id;
-            Task<string> result = GetWebResponse(post, "http://www.gcb.osostudio.pl/api/action/getBranch");
+            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/getBranch");
 
             string results = await result;
             var jsonParse = JsonConvert.DeserializeObject<BranchDetails>(results);

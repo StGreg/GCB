@@ -51,8 +51,14 @@ namespace GCB
         }
         public async Task GetInvestemntListData(string sessionId, string deviceId, string stat)
         {
+            if ((InvDatas.Count > 0) || (_InvDatas.Count > 0))
+            {
+                InvDatas.Clear();
+                _InvDatas.Clear();
+            }
+
             string post = "sessionId=" + sessionId + "&deviceId=" + deviceId + "&stat=" + stat;
-            Task<string> result = GetWebResponse(post, "http://www.gcb.osostudio.pl/api/action/getInvestmentList");
+            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/getInvestmentList");
 
             string results = await result;
             var jsonParse = JsonConvert.DeserializeObject<InvestmentResponse>(results);

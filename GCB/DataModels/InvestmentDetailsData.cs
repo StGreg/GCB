@@ -59,10 +59,17 @@ namespace GCB
                 return this._InvDetDatas;
             }
         }
-        public async Task GetInvestemnDetailsData(string sessionId, string deviceId, string id)
+        public async Task GetInvestemntDetailsData(string sessionId, string deviceId, string id)
         {
+
+            if ((InvDetDatas.Count > 0) || (_InvDetDatas.Count > 0))
+            {
+                InvDetDatas.Clear();
+                _InvDetDatas.Clear();
+            }
+
             string post = "sessionId=" + sessionId + "&deviceId=" + deviceId + "&id=" + id;
-            Task<string> result = GetWebResponse(post, "http://www.gcb.osostudio.pl/api/action/getInvestment");
+            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/getInvestment");
 
             string results = await result;
             var jsonParse = JsonConvert.DeserializeObject<InvestmentDetails>(results);

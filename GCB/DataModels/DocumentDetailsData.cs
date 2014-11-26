@@ -60,7 +60,7 @@ namespace GCB
         public async Task GetDocumentDetailsData(string sessionId, string deviceId, string id)
         {
             string post = "sessionId=" + sessionId + "&deviceId=" + deviceId + "&id=" + id;
-            Task<string> result = GetWebResponse(post, "http://www.gcb.osostudio.pl/api/action/getDocument");
+            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/getDocument");
 
             string results = await result;
             var jsonParse = JsonConvert.DeserializeObject<DocumentDetails>(results);

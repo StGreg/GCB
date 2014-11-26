@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -32,9 +33,12 @@ namespace GCB
         //Create global properties to hold session and device ID's
         public string sessionId { get; set; }
         public string deviceId { get; set; }
+        public string userEmail { get; set; }
+        public string userName { get; set; }
+        public List<string> userBranches { get; set; }
 
         //Retrieving device ID using hardware identifier
-        public string getDeviceId()
+        private string getDeviceId()
         {
             var token = HardwareIdentification.GetPackageSpecificToken(null);
             var hwId = token.Id;
@@ -44,6 +48,12 @@ namespace GCB
             dataReader.ReadBytes(bytes);
 
             return BitConverter.ToString(bytes);
+        }
+        private string parse(string input)
+        {
+            StringBuilder a = new StringBuilder(input);
+            a.Replace("-", "");
+            return a.ToString();
         }
 
         /// <summary>
@@ -61,7 +71,7 @@ namespace GCB
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
 #if DEBUG
@@ -85,10 +95,12 @@ namespace GCB
                 if (connectionTest != null)
                 {
                     deviceId = getDeviceId();
-                    LoginData loginData = (LoginData)App.Current.Resources["loginData"];
+                    deviceId = parse(deviceId);
+
+                    /*LoginData loginData = (LoginData)App.Current.Resources["loginData"];
                     await loginData.GetLoginData("jan@robotny.pl", "JanRobotny", deviceId);
 
-                    sessionId = loginData.LoginDatas[0].data.sessionId;
+                    sessionId = loginData.LoginDatas[0].data.sessionId;*/
                 }
                 else
                 {
@@ -115,7 +127,7 @@ namespace GCB
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                rootFrame.Navigate(typeof(ViewModels.LoginPage), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();

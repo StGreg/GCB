@@ -6,7 +6,12 @@
     
     <Application.Resources>
         <ResourceDictionary>
+            <x:String x:Key="AppName">GCB</x:String>
             <local:LoginData x:Key="loginData"/>
+            <local:InvestmentListData x:Key="investmentListData"/>
+            <local:InvestmentDetailsData x:Key="investmentDetailsData"/>
+            <local:BranchDetailsData x:Key="branchDetailsData"/>
+            <local:DocumentDetailsData x:Key="documentDetailsData"/>
         </ResourceDictionary>
     </Application.Resources>
 

@@ -46,8 +46,15 @@ namespace GCB
 
         public async Task GetLoginData(string email, string pass, string deviceId)
         {
+
+            if((LoginDatas.Count > 0) || (_LoginDatas.Count > 0))
+            {
+                LoginDatas.Clear();
+                _LoginDatas.Clear();
+            }
+
             string post = "email=" + email + "&pass=" + pass + "&deviceId=" + deviceId;
-            Task<string> result = GetWebResponse(post, "http://www.gcb.osostudio.pl/api/action/userLogin");
+            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/userLogin");
 
             string results = await result;
             var jsonParse = JsonConvert.DeserializeObject<LoginResponse>(results);
