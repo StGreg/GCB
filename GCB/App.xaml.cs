@@ -30,6 +30,8 @@ namespace GCB
     sealed partial class App : Application
     {
 
+        public string apiUrl = "http://www.system.grzesikcb.pl/api/action/";
+
         //Create global properties to hold session and device ID's
         public string sessionId { get; set; }
         public string deviceId { get; set; }

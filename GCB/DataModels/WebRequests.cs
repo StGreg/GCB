@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,59 +8,9 @@ using System.Threading.Tasks;
 
 namespace GCB
 {
-    public class LoginResponse
+    class WebRequests
     {
-        public string status { get; set; }
-        public Data data { get; set; }
-
-        public class Data
-        {
-            public string code { get; set; }
-            public string message { get; set; }
-            public string sessionId { get; set; }
-            public User user { get; set; }
-
-            public class User
-            {
-                public string email { get; set; }
-                public string id { get; set; }
-                public string name { get; set; }
-                public string phone { get; set; }
-                public List<string> branches { get; set; }
-            }
-        }
-
-    }
-    public class LoginData
-    {
-        private ObservableCollection<LoginResponse> _LoginDatas = new ObservableCollection<LoginResponse>();
-        public ObservableCollection<LoginResponse> LoginDatas
-        {
-            get
-            {
-                return this._LoginDatas;
-            }
-        }
-
-        public async Task GetLoginData(string email, string pass, string deviceId)
-        {
-
-            if((LoginDatas.Count > 0) || (_LoginDatas.Count > 0))
-            {
-                LoginDatas.Clear();
-                _LoginDatas.Clear();
-            }
-
-            string post = "email=" + email + "&pass=" + pass + "&deviceId=" + deviceId;
-            //Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/userLogin");
-            Task<string> result = WebRequests.GetWebResponse(post, ((App)(App.Current)).apiUrl + "userLogin");
-
-            string results = await result;
-            var jsonParse = JsonConvert.DeserializeObject<LoginResponse>(results);
-            this.LoginDatas.Add(jsonParse);
-        }
-
-        /*private async Task<string> GetWebResponse(string postData, string url)
+        public static async Task<string> GetWebResponse(string postData, string url)
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
             string result;
@@ -103,7 +51,7 @@ namespace GCB
             return result;
         }
 
-        private string parse(string input)
+        private static string parse(string input)
         {
             StringBuilder a = new StringBuilder(input);
             a.Replace("\\u0105", "ą");
@@ -125,6 +73,6 @@ namespace GCB
             a.Replace("\\u0179", "Ź");
             a.Replace("\\u017b", "Ż");
             return a.ToString();
-        }*/
+        }
     }
 }

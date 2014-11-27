@@ -7,6 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <x:String x:Key="AppName">GCB</x:String>
+            <local:DateConverter x:Key="dateConverter"/>
             <local:LoginData x:Key="loginData"/>
             <local:InvestmentListData x:Key="investmentListData"/>
             <local:InvestmentDetailsData x:Key="investmentDetailsData"/>

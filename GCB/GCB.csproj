@@ -111,10 +111,12 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="DataModels\BranchDetailsData.cs" />
+    <Compile Include="DataModels\DateConverter.cs" />
     <Compile Include="DataModels\DocumentDetailsData.cs" />
     <Compile Include="DataModels\InvestmentDetailsData.cs" />
     <Compile Include="DataModels\InvestmentListData.cs" />
     <Compile Include="DataModels\LoginData.cs" />
+    <Compile Include="DataModels\WebRequests.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +138,9 @@
     </Compile>
     <Compile Include="ViewModels\test2.xaml.cs">
       <DependentUpon>test2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\test3.xaml.cs">
+      <DependentUpon>test3.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewModels\test2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\test3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

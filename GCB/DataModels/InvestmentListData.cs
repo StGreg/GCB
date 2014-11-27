@@ -24,9 +24,9 @@ namespace GCB
         {
             public string title { get; set; }
             public string place { get; set; }
-            public string date_from { get; set; }
-            public string date_to { get; set; }
-            public string date_offer { get; set; }
+            public DateTime date_from { get; set; }
+            public DateTime date_to { get; set; }
+            public DateTime date_offer { get; set; }
             public string id { get; set; }
             public object offer { get; set; }
             public List<AssignedBranches> assignedBranches { get; set; }
@@ -49,6 +49,7 @@ namespace GCB
                 return this._InvDatas;
             }
         }
+
         public async Task GetInvestemntListData(string sessionId, string deviceId, string stat)
         {
             if ((InvDatas.Count > 0) || (_InvDatas.Count > 0))
@@ -58,14 +59,14 @@ namespace GCB
             }
 
             string post = "sessionId=" + sessionId + "&deviceId=" + deviceId + "&stat=" + stat;
-            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/getInvestmentList");
+            Task<string> result = WebRequests.GetWebResponse(post, ((App)(App.Current)).apiUrl + "getInvestmentList");
 
             string results = await result;
             var jsonParse = JsonConvert.DeserializeObject<InvestmentResponse>(results);
             this.InvDatas.Add(jsonParse);
         }
 
-        private async Task<string> GetWebResponse(string postData, string url)
+        /*private async Task<string> GetWebResponse(string postData, string url)
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
             string result;
@@ -128,7 +129,7 @@ namespace GCB
             a.Replace("\\u0179", "Ź");
             a.Replace("\\u017b", "Ż");
             return a.ToString();
-        }
+        }*/
     }
 }
 

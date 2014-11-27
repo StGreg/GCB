@@ -7,44 +7,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="#FF938D85">
-    	<Grid.RowDefinitions>
-    		<RowDefinition Height="160"/>
-    		<RowDefinition/>
-    	</Grid.RowDefinitions>
-    	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0"/>
-    		<ColumnDefinition Width="200"/>
-    		<ColumnDefinition Width="100*"/>
-    		<ColumnDefinition Width="0*"/>
-    	</Grid.ColumnDefinitions>
-    	<Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="160" VerticalAlignment="Top" Width="200" Background="AntiqueWhite">
-    		<Image Source="Logo3.png" Stretch="Fill" Width="153.6" Height="153.6" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    	</Grid>
-        <Grid Grid.Column="2" HorizontalAlignment="Left" Height="160" VerticalAlignment="Top" Width="1166">
-    		<Grid.ColumnDefinitions>
-    			<ColumnDefinition/>
-    			<ColumnDefinition Width="360"/>
-    		</Grid.ColumnDefinitions>
-    		<TextBlock HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="42.667" Width="786" Height="51">
-    			<Run Text="TextBlok"/>
-    		</TextBlock>
-    		<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,65,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="43" Width="259" FontSize="26.667"/>
-    		<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,113,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="37" Width="237" FontSize="21.333"/>
-    	</Grid>
-    	<Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="618" Margin="0,0,0,-2" Grid.Row="1" VerticalAlignment="Top" Width="200">
-    		<Grid.RowDefinitions>
-    			<RowDefinition Height="110"/>
-    			<RowDefinition Height="100"/>
-    			<RowDefinition Height="100"/>
-    			<RowDefinition Height="150"/>
-    			<RowDefinition/>
-    		</Grid.RowDefinitions>
-    		<Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Bottom" Width="200" Height="100" Background="#FF441C1C"/>
-    		<Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="200" Height="100" Background="#FF3E1919" Grid.Row="1" Grid.ColumnSpan="3"/>
-    		<Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="200" Height="100" Background="#FF301818" Grid.Row="2"/>
-    	</Grid>
-        <Frame Content="Frame" Grid.Column="2" HorizontalAlignment="Left" Margin="20,20,0,0" Grid.Row="1" VerticalAlignment="Top" Height="500" Width="650"/>
-
+    <Grid Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="160" VerticalAlignment="Top" Width="200" Background="AntiqueWhite">
+            <Image Source="Logo3.png" Stretch="Fill" Width="153.6" Height="153.6" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="618" Margin="0,160,0,-10" VerticalAlignment="Top" Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Bottom" Width="200" Height="100" Background="#FF441C1C" Click="Button_Click"/>
+            <Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="200" Height="100" Background="#FF3E1919" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="200" Height="100" Background="#FF301818" Grid.Row="2"/>
+        </Grid>
+        <Frame x:Name="contentFrame" Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
     </Grid>
 </Page>
