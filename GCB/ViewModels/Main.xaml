@@ -1,4 +1,5 @@
 ﻿<Page
+	x:Name="pageRoot"
     x:Class="GCB.ViewModels.Main"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,32 +7,48 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="MenuListStyle" TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0,0,18,2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" ContentMargin="4" ContentTransitions="{TemplateBinding ContentTransitions}" CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="#FFFBE2C1" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" PointerOverBackgroundMargin="1" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPointerOverBorderBrush="#FFFBE2C1" SelectionCheckMarkVisualEnabled="True" SelectedForeground="#FFFBE2C1" SelectedPointerOverBackground="#FFFBE2C1" SelectedBorderThickness="{ThemeResource ListViewItemCompactSelectedBorderThemeThickness}" SelectedBackground="#FFFBE2C1" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="#FFFBE2C1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid Background="AntiqueWhite">
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="160" VerticalAlignment="Top" Width="200" Background="AntiqueWhite">
-            <Image Source="Logo3.png" Stretch="Fill" Width="153.6" Height="153.6" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="160" VerticalAlignment="Top" Width="220">
+            <Image Source="Logo3.png" Stretch="Fill" Width="153.6" Height="153.6" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+			<TextBlock Text="GCB" Margin="140,0,0,10" VerticalAlignment="Bottom" FontSize="32" Foreground="Black" SelectionHighlightColor="{x:Null}" IsHitTestVisible="False" FontWeight="Bold"/>
+		</Grid>
+        <Grid Grid.Column="0" HorizontalAlignment="Left" Width="Auto" Height="Auto" Margin="0,160,0,0" VerticalAlignment="Top">
+			<ListView x:Name="Menu" Height="Auto" Width="240" VerticalAlignment="Top" HorizontalAlignment="Left" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsSwipeEnabled="False" ItemContainerStyle="{StaticResource MenuListStyle}" SelectionChanged="Menu_SelectionChanged" BorderThickness="0,1,0,0" BorderBrush="LightGray">
+				<TextBlock Text="Planowane inwestycje" Margin="10,0,0,0" Foreground="Black"/>
+				<TextBlock Text="Trwające inwestycje" Margin="10,0,0,0" Foreground="Black"/>
+                <TextBlock Text="Zakończone inwestycje" Margin="10,0,0,0" Foreground="Black"/>
+            </ListView>
         </Grid>
-        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="618" Margin="0,160,0,-10" VerticalAlignment="Top" Width="200">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="110"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="150"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Bottom" Width="200" Height="100" Background="#FF441C1C" Click="Button_Click"/>
-            <Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="200" Height="100" Background="#FF3E1919" Grid.Row="1" Grid.ColumnSpan="3"/>
-            <Button Content="Button" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="200" Height="100" Background="#FF301818" Grid.Row="2"/>
-        </Grid>
-        <Frame x:Name="contentFrame" Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+		<Grid Grid.Column="1" Background="#FFFBF5EC">
+			<Frame x:Name="contentFrame" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+		</Grid>
     </Grid>
 </Page>
+

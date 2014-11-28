@@ -124,6 +124,9 @@
     <Compile Include="ViewModels\InvDetailsPage.xaml.cs">
       <DependentUpon>InvDetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\InvestmentLists.xaml.cs">
+      <DependentUpon>InvestmentLists.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewModels\InvDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\InvestmentLists.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,14 +22,35 @@ namespace GCB.ViewModels
     /// </summary>
     public sealed partial class Main : Page
     {
+
         public Main()
         {
+
             this.InitializeComponent();
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.contentFrame.Navigate(typeof(test3));
+            string name = ((TextBlock)e.AddedItems[0]).Text;
+            if (name == "Planowane inwestycje")
+            {
+                string id = "1";
+                this.contentFrame.Navigate(typeof(InvestmentLists), id);
+            }
+            if (name == "Trwające inwestycje")
+            {
+                string id = "2";
+                this.contentFrame.Navigate(typeof(InvestmentLists), id);
+            }
+            if (name == "Zakończone inwestycje")
+            {
+                string id = "3";
+                this.contentFrame.Navigate(typeof(InvestmentLists), id);
+            }
         }
+
+
+
     }
 }

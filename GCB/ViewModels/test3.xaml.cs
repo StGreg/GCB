@@ -90,8 +90,10 @@ namespace GCB.ViewModels
             // TODO: Assign a bindable group to Me.DefaultViewModel("Group")
             // TODO: Assign a collection of bindable items to Me.DefaultViewModel("Items")
 
+            string id = (string)e.NavigationParameter;
+
             InvestmentListData investmentListData = (InvestmentListData)App.Current.Resources["investmentListData"];
-            await investmentListData.GetInvestemntListData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, "1");
+            await investmentListData.GetInvestemntListData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, id);
 
             if (investmentListData != null)
             {
@@ -100,6 +102,19 @@ namespace GCB.ViewModels
                 //this.DefaultViewModel["Items"] = investmentListData.InvDatas[0].data.list;
                 this.DefaultViewModel["Items"] = sortedInvestmentList;
                 this.DefaultViewModel["Group"] = investmentListData.InvDatas[0].data;
+
+                if (id == "1")
+                {
+                    pageTitle.Text = "Planowane inwestycje";
+                }
+                if (id == "2")
+                {
+                    pageTitle.Text = "Trwające inwestycje";
+                }
+                if (id == "3")
+                {
+                    pageTitle.Text = "Zakończone inwestycje";
+                }
             }
 
             if (e.PageState == null)

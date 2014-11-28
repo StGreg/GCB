@@ -48,7 +48,7 @@
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button"/>
-            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+            <TextBlock x:Name="pageTitle" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,0,40"/>
         </Grid>
 
@@ -91,10 +91,10 @@
                             </StackPanel>
                             <TextBlock Text="{Binding place}" Style="{StaticResource SubtitleTextBlockStyle}" TextWrapping="NoWrap"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Termin składania ofert mija:" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                                <TextBlock x:Name="details1" Text="Termin składania ofert mija:" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap"/>
                                 <TextBlock TextWrapping="NoWrap" Style="{StaticResource SubtitleTextBlockStyle}" Margin="4,0,0,0">
                                     <TextBlock.Text>
-                                        <Binding Path="date_offer" Converter="{StaticResource dateConverter}" ConverterParameter="date"></Binding>
+                                        <Binding Path="date_offer" Converter="{StaticResource dateConverter}" ConverterParameter="date"/>
                                     </TextBlock.Text>
                                 </TextBlock>
                             </StackPanel>
