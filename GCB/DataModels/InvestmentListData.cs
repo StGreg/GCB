@@ -28,13 +28,22 @@ namespace GCB
             public DateTime date_to { get; set; }
             public DateTime date_offer { get; set; }
             public string id { get; set; }
-            public object offer { get; set; }
+            public Offer offer { get; set; }
             public List<AssignedBranches> assignedBranches { get; set; }
 
             public class AssignedBranches
             {
                 public string id { get; set; }
                 public string title { get; set; }
+            }
+
+            public class Offer
+            {
+                public string branchId { get; set; }
+                public string branchName { get; set; }
+                public string price { get; set; }
+                public DateTime date { get; set; }
+
             }
         }
     }
