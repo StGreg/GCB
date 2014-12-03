@@ -123,7 +123,7 @@
                         <TextBlock Text="{Binding InvData.place}" TextWrapping="NoWrap" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,15,0,0">
-                        <TextBlock Text="{Binding InvData.description}" TextWrapping="NoWrap" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black" />
+                        <TextBlock Text="{Binding InvData.description}" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black" />
                     </StackPanel>
                 </StackPanel>
             </Border>

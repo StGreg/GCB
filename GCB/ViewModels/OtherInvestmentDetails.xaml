@@ -83,7 +83,7 @@
                         <TextBlock Text="{Binding InvData.place}" TextWrapping="NoWrap" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,15,0,0">
-                        <TextBlock Text="{Binding InvData.description}" TextWrapping="NoWrap" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black" />
+                        <TextBlock Text="{Binding InvData.description}" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -131,7 +131,7 @@
             Grid.Row="4"
             Margin="-10,-10,0,0"
             Padding="120,0,0,60"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemsSource="{Binding Items2}"
             IsSwipeEnabled="False" IsItemClickEnabled="False" SelectionMode="None" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False">
             <ListView.ItemTemplate>
                 <DataTemplate>

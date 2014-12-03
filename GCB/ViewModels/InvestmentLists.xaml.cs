@@ -190,6 +190,10 @@ namespace GCB.ViewModels
                 {
                     this.Frame.Navigate(typeof(PlannedInvestmentsDetails), id); 
                 }
+                else
+                {
+                    this.Frame.Navigate(typeof(OtherInvestmentDetails), id);
+                }
                 //var item = itemGridView.SelectedItem;
                 
                 //this.Frame.Navigate(typeof(InvDetailsPage), id);

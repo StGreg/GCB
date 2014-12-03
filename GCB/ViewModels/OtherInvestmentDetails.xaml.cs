@@ -73,17 +73,21 @@ namespace GCB.ViewModels
 
             if (investmentDetailsData != null)
             {
+                List<InvestmentDetails.Data.Data2.Branch> yours = new List<InvestmentDetails.Data.Data2.Branch>();
+                List<InvestmentDetails.Data.Data2.Branch> others = new List<InvestmentDetails.Data.Data2.Branch>();
                 for (int i = 0; i < investmentDetailsData.InvDetDatas[0].data.data.branches.Count; i++)
                 {
                     if (investmentDetailsData.InvDetDatas[0].data.data.branches[i].assigned == 1)
-                    {
-                        this.DefaultViewModel["Items"] = investmentDetailsData.InvDetDatas[0].data.data.branches;
+                    {                        
+                        yours.Add(investmentDetailsData.InvDetDatas[0].data.data.branches[i]);                       
                     }
-                    else
-                    {
-                        this.DefaultViewModel["Items2"] = 
+                    else if (investmentDetailsData.InvDetDatas[0].data.data.branches[i].assigned == 0)
+                    {                       
+                        others.Add(investmentDetailsData.InvDetDatas[0].data.data.branches[i]);   
                     }
                 }
+                this.DefaultViewModel["Items"] = yours;
+                this.DefaultViewModel["Items2"] = others;
                 this.DefaultViewModel["InvData"] = investmentDetailsData.InvDetDatas[0].data.data;
                 
             }
