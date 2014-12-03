@@ -23,7 +23,6 @@ namespace GCB.ViewModels
     /// </summary>
     /// 
 
-
     public class ItemsTemplateSelector : DataTemplateSelector
     {
         public DataTemplate PlannedNotOffered { get; set; }
@@ -44,7 +43,52 @@ namespace GCB.ViewModels
             {
                 return ClosedYours;
             }
+            else if (InvestmentLists.selector == "1" && listItem.offer.branchName != null)
+            {
+                return PlannedOffered;
+            }
+            else if (InvestmentLists.selector == "1")
+            {
+                return PlannedNotOffered;
+            }
+            else if (InvestmentLists.selector == "2" && listItem.assignedBranches.Count == 0)
+            {
+                return OngoingOthers;
+            }
+            else if (InvestmentLists.selector == "2")
+            {
+                return OngoingYours;
+            }
             return base.SelectTemplateCore(item, container);
+        }
+    }
+
+    public class ItemsStyleSelector : StyleSelector
+    {
+        protected override Style SelectStyleCore(object item, DependencyObject container)
+        {
+            var listItem = item as InvestmentResponse.List;
+
+            Style st = new Style();
+            st.TargetType = typeof(ListViewItem);
+            Setter clickableSetter = new Setter();
+            clickableSetter.Property = ListViewItem.IsHitTestVisibleProperty;
+
+            if (InvestmentLists.selector == "2" && listItem.assignedBranches.Count == 0)
+            {
+                clickableSetter.Value = false;
+                st.Setters.Add(clickableSetter);
+                return st;
+            }
+
+            if (InvestmentLists.selector == "3" && listItem.assignedBranches.Count == 0)
+            {
+                clickableSetter.Value = false;
+                st.Setters.Add(clickableSetter);
+                return st;
+            }
+
+            return base.SelectStyleCore(item, container);
         }
     }
 
@@ -140,9 +184,15 @@ namespace GCB.ViewModels
         {
             if (e.ClickedItem != null)
             {
-                //var item = itemGridView.SelectedItem;
+
                 string id = ((InvestmentResponse.List)e.ClickedItem).id;
-                this.Frame.Navigate(typeof(InvDetailsPage), id);
+                if (pageTitle.Text == "Planowane inwestycje")
+                {
+                    this.Frame.Navigate(typeof(PlannedInvestmentsDetails), id); 
+                }
+                //var item = itemGridView.SelectedItem;
+                
+                //this.Frame.Navigate(typeof(InvDetailsPage), id);
             }
         }
 

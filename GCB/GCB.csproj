@@ -127,17 +127,17 @@
     <Compile Include="ViewModels\InvestmentLists.xaml.cs">
       <DependentUpon>InvestmentLists.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\OtherInvestmentDetails.xaml.cs">
+      <DependentUpon>OtherInvestmentDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PlannedInvestmentsDetails.xaml.cs">
+      <DependentUpon>PlannedInvestmentsDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\test2.xaml.cs">
       <DependentUpon>test2.xaml</DependentUpon>
@@ -180,19 +180,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewModels\OtherInvestmentDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\PlannedInvestmentsDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewModels\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewModels\Main.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewModels\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewModels\StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -71,6 +71,9 @@ namespace GCB
             Task<string> result = WebRequests.GetWebResponse(post, ((App)(App.Current)).apiUrl + "getInvestmentList");
 
             string results = await result;
+            StringBuilder a = new StringBuilder(results);
+            a.Replace("\"offer\":[]", "\"offer\":{}");
+            results = a.ToString();
             var jsonParse = JsonConvert.DeserializeObject<InvestmentResponse>(results);
             this.InvDatas.Add(jsonParse);
         }

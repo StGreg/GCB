@@ -1,9 +1,9 @@
-﻿using System;
+﻿using GCB.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using GCB.Common;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -14,15 +14,37 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Grouped Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234231
+// The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 namespace GCB.ViewModels
 {
     /// <summary>
-    /// A page that displays a grouped collection of items.
+    /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class MainPage : Page
+    /// 
+
+    public class ItemsTemplateSelectorPlanned : DataTemplateSelector
     {
+        public DataTemplate Offered { get; set; }
+        public DataTemplate NotOffered { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            var listItem = item as InvestmentDetails.Data.Data2.Branch;
+            if (listItem.offer.price != null)
+            {
+                return Offered;
+            }
+            else
+            {
+                return NotOffered;
+            }
+        }
+    }
+
+    public sealed partial class PlannedInvestmentsDetails : Page
+    {
+
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -40,22 +62,20 @@ namespace GCB.ViewModels
         /// </summary>
         public NavigationHelper NavigationHelper
         {
-            get
-            {
-                return this.navigationHelper;
-            }
+            get { return this.navigationHelper; }
         }
 
-        public MainPage()
+
+        public PlannedInvestmentsDetails()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
-            DataContext = this;
+            this.navigationHelper.SaveState += navigationHelper_SaveState;
         }
 
         /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
+        /// Populates the page with content passed during navigation. Any saved state is also
         /// provided when recreating a page from a prior session.
         /// </summary>
         /// <param name="sender">
@@ -64,20 +84,31 @@ namespace GCB.ViewModels
         /// <param name="e">Event data that provides both the navigation parameter passed to
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
+        /// session. The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // TODO: Assign a collection of bindable groups to this.DefaultViewModel["Groups"]
+            string id = (string)e.NavigationParameter;
 
-            InvestmentListData investmentListData = (InvestmentListData)App.Current.Resources["investmentListData"];
-            await investmentListData.GetInvestemntListData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, "1");
-            await investmentListData.GetInvestemntListData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, "2");
-            await investmentListData.GetInvestemntListData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, "3");
+            InvestmentDetailsData investmentDetailsData = (InvestmentDetailsData)App.Current.Resources["investmentDetailsData"];
+            await investmentDetailsData.GetInvestemntDetailsData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, id);
 
-            if (investmentListData != null)
+            if (investmentDetailsData != null)
             {
-                this.DefaultViewModel["Groups"] = investmentListData.InvDatas;
+                this.DefaultViewModel["InvData"] = investmentDetailsData.InvDetDatas[0].data.data; 
+                this.DefaultViewModel["Items"] = investmentDetailsData.InvDetDatas[0].data.data.branches;
             }
+        }
+
+        /// <summary>
+        /// Preserves state associated with this page in case the application is suspended or the
+        /// page is discarded from the navigation cache.  Values must conform to the serialization
+        /// requirements of <see cref="SuspensionManager.SessionState"/>.
+        /// </summary>
+        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
+        /// <param name="e">Event data that provides an empty dictionary to be populated with
+        /// serializable state.</param>
+        private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
         }
 
         #region NavigationHelper registration
@@ -102,5 +133,19 @@ namespace GCB.ViewModels
         }
 
         #endregion
+
+        private void itemListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void Show_Description(object sender, RoutedEventArgs e)
+        {
+            if (!descPop.IsOpen)
+            {
+                RootPopupBorder.Width = 646;
+                descPop.IsOpen = true;
+            }
+        }
     }
 }
