@@ -23,6 +23,7 @@ namespace GCB.ViewModels
     /// </summary>
     public sealed partial class OtherInvestmentDetails : Page
     {
+        string invId;
 
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
@@ -66,10 +67,10 @@ namespace GCB.ViewModels
         /// session. The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            string id = (string)e.NavigationParameter;
+            invId = (string)e.NavigationParameter;
 
             InvestmentDetailsData investmentDetailsData = (InvestmentDetailsData)App.Current.Resources["investmentDetailsData"];
-            await investmentDetailsData.GetInvestemntDetailsData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, id);
+            await investmentDetailsData.GetInvestemntDetailsData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, invId);
 
             if (investmentDetailsData != null)
             {
@@ -139,7 +140,15 @@ namespace GCB.ViewModels
 
         private void itemListViewYours_ItemClick(object sender, ItemClickEventArgs e)
         {
+            string branchId = ((InvestmentDetails.Data.Data2.Branch)e.ClickedItem).id;
+            //string id = "inv:" + invId + "branch:" + branchId;
+            var id = new List<string>()
+            {
+                invId,
+                branchId
+            };
 
+            this.Frame.Navigate(typeof(PlannedBranchDetails), id);
         }
     }
 }

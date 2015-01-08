@@ -23,7 +23,7 @@ namespace GCB
             {
                 public string id { get; set; }
                 public string title { get; set; }
-                public object offer { get; set; }
+                public Offer offer { get; set; }
                 public List<Document> documents { get; set; }
                 public string agreement { get; set; }
                 public string isAgreementSigned { get; set; }
@@ -40,7 +40,13 @@ namespace GCB
                     public string title { get; set; }
                     public string file { get; set; }
                     public int commentCount { get; set; }
-                    public string date { get; set; }
+                    public DateTime date { get; set; }
+                }
+
+                public class Offer
+                {
+                    public string price { get; set; }
+                    public DateTime date { get; set; }
                 }
             }
         }
@@ -58,77 +64,21 @@ namespace GCB
         }
         public async Task GetBranchDetailsData(string sessionId, string deviceId, string branch_id, string investment_id)
         {
+            if ((BranchDatas.Count > 0) || (_BranchDatas.Count > 0))
+            {
+                BranchDatas.Clear();
+                _BranchDatas.Clear();
+            }
+
             string post = "sessionId=" + sessionId + "&deviceId=" + deviceId + "&branch_id=" + branch_id + "&investment_id=" + investment_id;
-            Task<string> result = GetWebResponse(post, "http://www.system.grzesikcb.pl/api/action/getBranch");
+            Task<string> result = WebRequests.GetWebResponse(post, ((App)(App.Current)).apiUrl + "getBranch");
 
             string results = await result;
+            StringBuilder a = new StringBuilder(results);
+            a.Replace("\"offer\":[]", "\"offer\":{}");
+            results = a.ToString();
             var jsonParse = JsonConvert.DeserializeObject<BranchDetails>(results);
             this.BranchDatas.Add(jsonParse);
-        }
-
-        private async Task<string> GetWebResponse(string postData, string url)
-        {
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            string result;
-            webRequest.Proxy = null;
-            webRequest.ContentType = "application/x-www-form-urlencoded";
-            webRequest.Method = "POST";
-
-            using (Stream postStream = await webRequest.GetRequestStreamAsync())
-            {
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-                await postStream.WriteAsync(byteArray, 0, byteArray.Length);
-                await postStream.FlushAsync();
-            }
-
-            try
-            {
-                string Response;
-                var response = (HttpWebResponse)await webRequest.GetResponseAsync();
-                using (Stream streamResponse = response.GetResponseStream())
-                using (StreamReader streamReader = new StreamReader(streamResponse))
-                {
-                    Response = await streamReader.ReadToEndAsync();
-                }
-                if (Response != null)
-                {
-                    result = parse(Response);
-                }
-                else
-                {
-                    result = "Błąd odpowiedzi serwera!";
-                }
-            }
-            catch (WebException)
-            {
-                result = "Błąd połączenia";
-            }
-
-            return result;
-        }
-
-        private string parse(string input)
-        {
-            StringBuilder a = new StringBuilder(input);
-            a.Replace("\\u0105", "ą");
-            a.Replace("\\u0107", "ć");
-            a.Replace("\\u0119", "ę");
-            a.Replace("\\u0142", "ł");
-            a.Replace("\\u0144", "ń");
-            a.Replace("\\u00f3", "ó");
-            a.Replace("\\u015b", "ś");
-            a.Replace("\\u017a", "ź");
-            a.Replace("\\u017c", "ż");
-            a.Replace("\\u0104", "Ą");
-            a.Replace("\\u0106", "Ć");
-            a.Replace("\\u0118", "Ę");
-            a.Replace("\\u0141", "Ł");
-            a.Replace("\\u0143", "Ń");
-            a.Replace("\\u00d3", "Ó");
-            a.Replace("\\u015a", "Ś");
-            a.Replace("\\u0179", "Ź");
-            a.Replace("\\u017b", "Ż");
-            return a.ToString();
         }
     }
 }

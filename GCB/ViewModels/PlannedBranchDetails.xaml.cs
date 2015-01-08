@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,30 +21,8 @@ namespace GCB.ViewModels
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    /// 
-
-    public class ItemsTemplateSelectorPlanned : DataTemplateSelector
+    public sealed partial class PlannedBranchDetails : Page
     {
-        public DataTemplate Offered { get; set; }
-        public DataTemplate NotOffered { get; set; }
-
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
-        {
-            var listItem = item as InvestmentDetails.Data.Data2.Branch;
-            if (listItem.offer.price != null)
-            {
-                return Offered;
-            }
-            else
-            {
-                return NotOffered;
-            }
-        }
-    }
-
-    public sealed partial class PlannedInvestmentsDetails : Page
-    {
-        string invId;
 
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
@@ -68,7 +45,7 @@ namespace GCB.ViewModels
         }
 
 
-        public PlannedInvestmentsDetails()
+        public PlannedBranchDetails()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
@@ -89,16 +66,40 @@ namespace GCB.ViewModels
         /// session. The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            invId = (string)e.NavigationParameter;
+            var id = e.NavigationParameter as List<string>;
+            BranchDetailsData branchDetailsData = (BranchDetailsData)App.Current.Resources["branchDetailsData"];
+            await branchDetailsData.GetBranchDetailsData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, id[1], id[0]);
 
             InvestmentDetailsData investmentDetailsData = (InvestmentDetailsData)App.Current.Resources["investmentDetailsData"];
-            await investmentDetailsData.GetInvestemntDetailsData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, invId);
+            await investmentDetailsData.GetInvestemntDetailsData(((App)(App.Current)).sessionId, ((App)(App.Current)).deviceId, id[0]);
 
-            if (investmentDetailsData != null)
+            if (branchDetailsData != null)
             {
                 this.DefaultViewModel["InvData"] = investmentDetailsData.InvDetDatas[0].data.data; 
-                this.DefaultViewModel["Items"] = investmentDetailsData.InvDetDatas[0].data.data.branches;
+                this.DefaultViewModel["BranchData"] = branchDetailsData.BranchDatas[0].data.data;
+                this.DefaultViewModel["Items"] = branchDetailsData.BranchDatas[0].data.data.documents;
+
+                if (branchDetailsData.BranchDatas[0].data.data.offer.date.Year == 1)
+                {
+                    offer1.Text = "Twoja oferta: ";
+                    offer2.Text = "Nie złożyłeś jeszcze oferty!";
+                    offer3.Text = "";
+                    offer4.Text = "";
+                    offer5.Text = "";
+                    offersBut.Content = "Złóż ofertę";
+                }
+                if (branchDetailsData.BranchDatas[0].data.data.offer.date.Year != 1)
+                {
+                    Binding dateBinding = new Binding();
+                    dateBinding.Path = new PropertyPath("BranchData.offer.date");
+                    dateBinding.Converter = new DateConverter();
+                    dateBinding.ConverterParameter = "date";
+
+                    BindingOperations.SetBinding(offer2, TextBlock.TextProperty, dateBinding);
+                    offersBut.Content = "Zmień swoją ofertę";
+                }
             }
+            
         }
 
         /// <summary>
@@ -136,26 +137,15 @@ namespace GCB.ViewModels
 
         #endregion
 
-        private void itemListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void offersBut_Click(object sender, RoutedEventArgs e)
         {
-            string branchId = ((InvestmentDetails.Data.Data2.Branch)e.ClickedItem).id;
-            //string id = "inv:" + invId + "branch:" + branchId;
-            var id = new List<string>()
-            {
-                invId,
-                branchId
-            };
 
-            this.Frame.Navigate(typeof(PlannedBranchDetails), id);
         }
 
-        private void Show_Description(object sender, RoutedEventArgs e)
+        private void itemListViewYours_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!descPop.IsOpen)
-            {
-                RootPopupBorder.Width = 646;
-                descPop.IsOpen = true;
-            }
+            string id = ((BranchDetails.Data.Data2.Document)e.ClickedItem).id;
+            this.Frame.Navigate(typeof(DocumentDetailsPage), id);
         }
     }
 }
